@@ -1,19 +1,19 @@
 Class User.Triangle Extends %Persistent
 {
-    property A As %Float;
-    property B As %Float;
+    property A As %Double;
+    property B As %Double;
 
-    Method %OnNew(a As %Float, b As %Float) As %Status
+    Method %OnNew(a As %Double, b As %Double) As %Status
     {
         Set ..A = a, ..B = b
         Return $$$OK
     }
 
-    Method Area() As %Float {
+    Method Area() As %Double {
         Return (..A * ..B) / 2
     }
 
-    Method Hypotenuse() As %Float {
+    Method Hypotenuse() As %Double {
         Return $ZSQRT((..A * ..A) + (..B * ..B))
     }
 Storage Default
