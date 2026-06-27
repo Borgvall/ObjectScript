@@ -44,18 +44,29 @@ Class User.Fan Extends %Persistent
     Method %AtomicSave(force As %Boolean = 0) As %Status
     {
         // Atomare Speicherung mit ACID-Garantien
-        TSTART
+        Set tsc = TSTART
+        If 'tsc {
+            Return tsc
+        }
+        
         Try {
             Set sc = ..%Save(force)
             If 'sc {
                 TROLLBACK
                 Return sc
             }
-            TCOMMIT
+            
+            Set tsc = TCOMMIT
+            If 'tsc {
+                Return tsc
+            }
+            
             Return sc
         }
         Catch ex {
-            TROLLBACK
+            If $TRANSACTION {
+                TROLLBACK
+            }
             Return ex.AsStatus()
         }
     }
