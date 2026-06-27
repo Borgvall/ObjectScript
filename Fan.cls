@@ -1,3 +1,4 @@
+/// This is a vibe coded class writen by Copilot.
 Class User.Fan Extends %Persistent
 {
     property Triangle1 As User.Triangle;
@@ -78,28 +79,28 @@ Class User.Fan Extends %Persistent
     Storage Default
     {
     <Data name="FanDefaultData">
-    <Value name="1">
-    <Value>%%CLASSNAME</Value>
-    </Value>
-    <Value name="2">
-    <Value>Triangle1</Value>
-    </Value>
-    <Value name="3">
-    <Value>Triangle2</Value>
-    </Value>
-    <Value name="4">
-    <Value>Triangle3</Value>
-    </Value>
-    <Value name="5">
-    <Value>Triangle4</Value>
-    </Value>
-    </Data>
-    <DataLocation>^User.FanD</DataLocation>
-    <DefaultData>FanDefaultData</DefaultData>
-    <IdLocation>^User.FanD</IdLocation>
-    <IndexLocation>^User.FanI</IndexLocation>
-    <StreamLocation>^User.FanS</StreamLocation>
-    <Type>%Storage.Persistent</Type>
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Triangle1</Value>
+</Value>
+<Value name="3">
+<Value>Triangle2</Value>
+</Value>
+<Value name="4">
+<Value>Triangle3</Value>
+</Value>
+<Value name="5">
+<Value>Triangle4</Value>
+</Value>
+</Data>
+<DataLocation>^User.FanD</DataLocation>
+<DefaultData>FanDefaultData</DefaultData>
+<IdLocation>^User.FanD</IdLocation>
+<IndexLocation>^User.FanI</IndexLocation>
+<StreamLocation>^User.FanS</StreamLocation>
+<Type>%Storage.Persistent</Type>
     }
 
 }
