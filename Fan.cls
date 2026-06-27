@@ -16,58 +16,29 @@ Class User.Fan Extends %Persistent
 
     Method %Save(force As %Boolean = 0) As %Status
     {
-        // Umhülle alles mit einer Transaktion
-        TSTART
+        // Speichere zuerst alle vier Dreiecke
+        If ..Triangle1 '= "" {
+            Set sc = ..Triangle1.%Save(force)
+            If 'sc Return sc
+        }
         
-        Try {
-            // Speichere zuerst alle vier Dreiecke
-            If ..Triangle1 '= "" {
-                Set sc = ..Triangle1.%Save(force)
-                If 'sc {
-                    TROLLBACK
-                    Return sc
-                }
-            }
-            
-            If ..Triangle2 '= "" {
-                Set sc = ..Triangle2.%Save(force)
-                If 'sc {
-                    TROLLBACK
-                    Return sc
-                }
-            }
-            
-            If ..Triangle3 '= "" {
-                Set sc = ..Triangle3.%Save(force)
-                If 'sc {
-                    TROLLBACK
-                    Return sc
-                }
-            }
-            
-            If ..Triangle4 '= "" {
-                Set sc = ..Triangle4.%Save(force)
-                If 'sc {
-                    TROLLBACK
-                    Return sc
-                }
-            }
-            
-            // Dann speichere das Fan-Objekt selbst
-            Set sc = ##super(force)
-            If 'sc {
-                TROLLBACK
-                Return sc
-            }
-            
-            // Alles erfolgreich - Transaction committen
-            TCOMMIT
-            Return sc
+        If ..Triangle2 '= "" {
+            Set sc = ..Triangle2.%Save(force)
+            If 'sc Return sc
         }
-        Catch ex {
-            TROLLBACK
-            Return ex.AsStatus()
+        
+        If ..Triangle3 '= "" {
+            Set sc = ..Triangle3.%Save(force)
+            If 'sc Return sc
         }
+        
+        If ..Triangle4 '= "" {
+            Set sc = ..Triangle4.%Save(force)
+            If 'sc Return sc
+        }
+        
+        // Dann speichere das Fan-Objekt selbst
+        Return ##super(force)
     }
 
     Method TotalArea() As %Double {
