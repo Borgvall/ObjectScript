@@ -14,6 +14,33 @@ Class User.Fan Extends %Persistent
         Return $$$OK
     }
 
+    Method %Save(force As %Boolean = 0) As %Status
+    {
+        // Speichere zuerst alle vier Dreiecke
+        If ..Triangle1 '= "" {
+            Set sc = ..Triangle1.%Save(force)
+            If 'sc Return sc
+        }
+        
+        If ..Triangle2 '= "" {
+            Set sc = ..Triangle2.%Save(force)
+            If 'sc Return sc
+        }
+        
+        If ..Triangle3 '= "" {
+            Set sc = ..Triangle3.%Save(force)
+            If 'sc Return sc
+        }
+        
+        If ..Triangle4 '= "" {
+            Set sc = ..Triangle4.%Save(force)
+            If 'sc Return sc
+        }
+        
+        // Dann speichere das Fan-Objekt selbst
+        Return ##super(force)
+    }
+
     Method TotalArea() As %Double {
         Return ..Triangle1.Area() + ..Triangle2.Area() + ..Triangle3.Area() + ..Triangle4.Area()
     }
