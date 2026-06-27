@@ -41,35 +41,54 @@ Class User.Fan Extends %Persistent
         Return ##super(force)
     }
 
+    Method %AtomicSave(force As %Boolean = 0) As %Status
+    {
+        // Atomare Speicherung mit ACID-Garantien
+        TSTART
+        Try {
+            Set sc = ..%Save(force)
+            If 'sc {
+                TROLLBACK
+                Return sc
+            }
+            TCOMMIT
+            Return sc
+        }
+        Catch ex {
+            TROLLBACK
+            Return ex.AsStatus()
+        }
+    }
+
     Method TotalArea() As %Double {
         Return ..Triangle1.Area() + ..Triangle2.Area() + ..Triangle3.Area() + ..Triangle4.Area()
     }
 
-Storage Default
-{
-<Data name="FanDefaultData">
-<Value name="1">
-<Value>%%CLASSNAME</Value>
-</Value>
-<Value name="2">
-<Value>Triangle1</Value>
-</Value>
-<Value name="3">
-<Value>Triangle2</Value>
-</Value>
-<Value name="4">
-<Value>Triangle3</Value>
-</Value>
-<Value name="5">
-<Value>Triangle4</Value>
-</Value>
-</Data>
-<DataLocation>^User.FanD</DataLocation>
-<DefaultData>FanDefaultData</DefaultData>
-<IdLocation>^User.FanD</IdLocation>
-<IndexLocation>^User.FanI</IndexLocation>
-<StreamLocation>^User.FanS</StreamLocation>
-<Type>%Storage.Persistent</Type>
-}
+    Storage Default
+    {
+    <Data name="FanDefaultData">
+    <Value name="1">
+    <Value>%%CLASSNAME</Value>
+    </Value>
+    <Value name="2">
+    <Value>Triangle1</Value>
+    </Value>
+    <Value name="3">
+    <Value>Triangle2</Value>
+    </Value>
+    <Value name="4">
+    <Value>Triangle3</Value>
+    </Value>
+    <Value name="5">
+    <Value>Triangle4</Value>
+    </Value>
+    </Data>
+    <DataLocation>^User.FanD</DataLocation>
+    <DefaultData>FanDefaultData</DefaultData>
+    <IdLocation>^User.FanD</IdLocation>
+    <IndexLocation>^User.FanI</IndexLocation>
+    <StreamLocation>^User.FanS</StreamLocation>
+    <Type>%Storage.Persistent</Type>
+    }
 
 }
