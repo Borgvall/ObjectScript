@@ -1,0 +1,19 @@
+{
+    "workbench.colorTheme": "InterSystems Default Light Modern",
+    "intersystems.servers": {
+        "idris-development": {
+            "webServer": {
+                "scheme": "http",
+                "host": "127.0.0.1",
+                "port": 52773
+            },
+            "username": "_SYSTEM",
+            "description": "For development"
+        }
+    },
+    "objectscript.conn": {
+        "server": "idris-development",
+        "ns": "USER",
+        "active": true
+    }
+}
