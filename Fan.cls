@@ -15,40 +15,36 @@ Class User.Fan Extends %Persistent
         Return $$$OK
     }
 
-    Method %Save(force As %Boolean = 0) As %Status
+    Method %OnBeforeSave() As %Status
     {
         // Speichere zuerst alle vier Dreiecke
         If ..Triangle1 '= "" {
-            Set sc = ..Triangle1.%Save(force)
-            If 'sc Return sc
+            Set sc = ..Triangle1.%Save()
+            If 'sc Quit sc
         }
         
         If ..Triangle2 '= "" {
-            Set sc = ..Triangle2.%Save(force)
-            If 'sc Return sc
+            Set sc = ..Triangle2.%Save()
+            If 'sc Quit sc
         }
         
         If ..Triangle3 '= "" {
-            Set sc = ..Triangle3.%Save(force)
-            If 'sc Return sc
+            Set sc = ..Triangle3.%Save()
+            If 'sc Quit sc
         }
         
         If ..Triangle4 '= "" {
-            Set sc = ..Triangle4.%Save(force)
-            If 'sc Return sc
+            Set sc = ..Triangle4.%Save()
+            If 'sc Quit sc
         }
         
-        // Dann speichere das Fan-Objekt selbst
-        Return ##super(force)
+        Quit $$$OK
     }
 
     Method %AtomicSave(force As %Boolean = 0) As %Status
     {
         // Atomare Speicherung mit ACID-Garantien
-        Set tsc = TSTART
-        If 'tsc {
-            Return tsc
-        }
+        TSTART
         
         Try {
             Set sc = ..%Save(force)
@@ -57,17 +53,12 @@ Class User.Fan Extends %Persistent
                 Return sc
             }
             
-            Set tsc = TCOMMIT
-            If 'tsc {
-                Return tsc
-            }
+            TCOMMIT
             
             Return sc
         }
         Catch ex {
-            If $TRANSACTION {
-                TROLLBACK
-            }
+            TROLLBACK
             Return ex.AsStatus()
         }
     }
